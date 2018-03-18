@@ -1,6 +1,7 @@
 #panda {
   background: url(./teddy.png) 0 0;
   width: 72px;
-  height: 60px;
-  
+  height: 60px; 
+  margin: 0 auto;
 }
+.sprite { background:#f5f5f5; padding: 1rem; }
