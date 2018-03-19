@@ -69,16 +69,13 @@ export default class Panda extends Component {
    
     
     return (
-      <div className="sprite">
-      <div className="square">
+     
         <div style={{
         backgroundPosition: '' + this.state.y +'% ' + this.state.x + '%'
       }} 
         id="panda"></div>
          
-        <button onClick={this.handleDir}>Change dir</button>
-      </div>
-    </div>
+      
     );
   }
 }

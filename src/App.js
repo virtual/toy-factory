@@ -1,12 +1,17 @@
 import React, { Component } from 'react'; 
-import Panda from './sprites/Panda';
+import Grid from './board/Grid';
+import Header from './header/Header';
 import './App.css';
 
 class App extends Component {
+
   render() {
+    let rows = 10;
+    let sq;
     return (
       <div className="App">
-        <Panda />
+        <Header/>
+        <Grid rows={rows} />
       </div>
     );
   }

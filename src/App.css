@@ -1,28 +1,31 @@
-.App {
-  text-align: center;
-}
+* { box-sizing: border-box;}
+.board { text-align: center; margin-top: 1rem; font-size: 0;}
+header {text-align:center; }
+header h1 { font-weight: 300;}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
+.sprite { background:#f5f5f5; padding: 1rem; }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
+.square { padding:0; height: 25px; width: 25px; 
+  box-shadow: 1px 1px 0 #000; display:inline-block; border-collapse: collapse}
 
-.App-title {
-  font-size: 1.5em;
+.row {    display: inline-block;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;}
+@media (min-width: 410px) {
+  .square { height: 35px; width: 35px; }
 }
-
-.App-intro {
-  font-size: large;
+@media (min-width: 510px) {
+  .square { height: 45px; width: 45px; }
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media (min-width: 710px) {
+  .square { height: 65px; width: 65px; }
+}
+/* @media (min-width: 910px) {
+  .square { height: 85px; width: 85px; }
+} */
+ 
+.square {
+  background: url(./sprites/back2.png) 0 0;
+  background-size: cover;
+  opacity: .9
 }
