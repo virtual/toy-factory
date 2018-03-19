@@ -9,22 +9,32 @@ export default class Panda extends Component {
       y: 0,
       time: 1,
       direction: 'right',
-      shapes: [
+      shapes: [ // 2305
         {x: 0, y: 0},
-        {x: 0, y: 80},
-        {x: 0, y: 140},
-        {x: 0, y: 204},
-        {x: 0, y: 268} 
+        {x: 0, y: 3.4},
+        {x: 0, y: 6.3},
+        {x: 0, y: 9.5},
+        {x: 0, y: 12.7},
+        {x: 0, y: 16},
+        {x: 0, y: 19.5},
+        {x: 0, y: 23},
+        {x: 0, y: 26.3},
+        {x: 0, y: 29.3},
+        {x: 0, y: 32.3},
+        {x: 0, y: 35},
+        {x: 0, y: 37.6},
+        {x: 0, y: 40.2},
+        {x: 0, y: 42.7},
+        {x: 0, y: 99.4},
+        {x: 0, y: 96.6},
+        {x: 0, y: 93.8},
+        {x: 0, y: 91}
       ],
-      shapesRight: [
-        {x: 0, y: 330},
-        {x: 0, y: 400},
-        {x: 0, y: 470},
-        {x: 0, y: 540},
-        {x: 0, y: 600},
-        {x: 0, y: 670},
-        {x: 0, y: 735},
-        {x: 0, y: 800}
+      shapesRight: [        
+        {x: 0, y: 88},
+        {x: 0, y: 85.3},
+        {x: 0, y: 82.1},
+        {x: 0, y: 79}
       ]
     }
     this.walk = this.walk.bind(this);
@@ -60,13 +70,15 @@ export default class Panda extends Component {
     
     return (
       <div className="sprite">
+      <div className="square">
         <div style={{
-        backgroundPosition: '' + this.state.y +'px ' + this.state.x + 'px'
+        backgroundPosition: '' + this.state.y +'% ' + this.state.x + '%'
       }} 
         id="panda"></div>
          
         <button onClick={this.handleDir}>Change dir</button>
       </div>
+    </div>
     );
   }
 }
