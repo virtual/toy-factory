@@ -17,5 +17,6 @@
   "main": "index.js",
   "devDependencies": {},
   "author": "Jeanine Schoessler",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://virtual.github.io/toy-factory/"
 }
