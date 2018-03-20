@@ -1,5 +1,8 @@
 * { box-sizing: border-box;}
-.board { text-align: center; margin-top: 1rem; font-size: 0;}
+.board { text-align: center; margin-top: 1rem; font-size: 0; 
+  max-width: 960px;
+  margin: 0 auto;
+}
 header {text-align:center; }
 header h1 { font-weight: 300;}
 

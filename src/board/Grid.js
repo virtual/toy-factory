@@ -9,7 +9,7 @@ export default class Grid extends Component {
       let row = [];
       for (var h = 0; h < 10; h++) {
         let r = Math.random();
-        if (r < .98) {
+        if (r < .96) {
           row.push(<Square/>)
         } else {
           row.push(<Square panda={true}/>)
