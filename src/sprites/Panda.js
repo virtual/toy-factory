@@ -69,13 +69,10 @@ export default class Panda extends Component {
    
     
     return (
-     
-        <div style={{
+      <div style={{
         backgroundPosition: '' + this.state.y +'% ' + this.state.x + '%'
-      }} 
-        id="panda"></div>
-         
-      
+        }} 
+        className="panda"></div>
     );
   }
 }

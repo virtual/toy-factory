@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Panda from '../sprites/Panda';
+import Player from '../sprites/Player';
 
 export default class Square extends Component {
   constructor() {
@@ -10,8 +11,11 @@ export default class Square extends Component {
     if (this.props.panda) {
       html.push(<Panda/>)
     }
+    if (this.props.player) {
+      html.push(<Player/>)
+    }
     return (
-      <div class="square">
+      <div className="square">
         {html}
       </div>
     );
