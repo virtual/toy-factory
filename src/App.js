@@ -68,6 +68,9 @@ down = 40
 
     return (
       <div className="App">
+        <a className="forkme" href="https://github.com/virtual/toy-factory">
+          <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"/>
+          </a>
         <Header/>
         <Grid move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
       </div>
