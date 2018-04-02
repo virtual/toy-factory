@@ -13,7 +13,7 @@ class App extends Component {
       }
     }
     this.move = this.move.bind(this);
-    this.rows = 25;
+    this.rows = 20;
     this.cols = 25;
   }
 
@@ -43,13 +43,22 @@ down = 40
       var y = this.state.player.y;
       switch (event.keyCode) {
         case 37: // left
-          x = ((x - 1) > 0) ? x -  1 : 0;
+          x = ((x - 1) > 0) ? x - 1 : 0;
           this.move(x, y);
-          break; 
+          break;
         case 39: // right
           x = ((x + 1) !== this.cols) ? x + 1 : x;
           this.move(x, y);
           break;
+        case 38: // up
+          y = ((y - 1) > 0) ? y - 1 : 0;
+          this.move(x, y);
+          break;
+        case 40: // down
+          y = ((y + 1) !== this.rows) ? y + 1 : y;
+          this.move(x, y);
+          break;
+
       }
     })
   }
