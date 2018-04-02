@@ -8,20 +8,20 @@ header h1 { font-weight: 300;}
 
 .sprite { background:#f5f5f5; padding: 1rem; }
 
-.square { padding:0; height: 25px; width: 25px; 
+.square { padding:0; height: 10px; width: 10px; 
   box-shadow: 1px 1px 0 #000; display:inline-block; border-collapse: collapse}
 
 .row {    display: inline-block;
   border-left: 1px solid #000;
   border-top: 1px solid #000;}
 @media (min-width: 410px) {
-  .square { height: 35px; width: 35px; }
+  .square { height: 15px; width: 15px; }
 }
 @media (min-width: 510px) {
-  .square { height: 45px; width: 45px; }
+  .square { height: 20px; width: 20px; }
 }
 @media (min-width: 710px) {
-  .square { height: 65px; width: 65px; }
+  .square { height: 28px; width: 28px; }
 }
 /* @media (min-width: 910px) {
   .square { height: 85px; width: 85px; }

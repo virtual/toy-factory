@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   move(x, y) {
-    console.log(x,y)
+    console.log('move',x,y)
     this.setState({
       player: {
         x: x,
@@ -37,13 +37,13 @@ class App extends Component {
     })
   }
   render() {
-    let rows = 10;
+    let rows = 25;
     let sq;
 
     return (
       <div className="App">
         <Header/>
-        <Grid playerPosition={this.state.player} rows={rows} />
+        <Grid move={this.move} playerPosition={this.state.player} rows={rows} />
       </div>
     );
   }
