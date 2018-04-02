@@ -14,7 +14,7 @@ export default class Grid extends Component {
       boardReady: false
     }
     this.html = [];
-    this.cols = 25;
+    
     this.draw = this.draw.bind(this);
     this.redraw = this.redraw.bind(this);
     this.isItemInArray = this.isItemInArray.bind(this);
@@ -25,7 +25,7 @@ export default class Grid extends Component {
     this.monsters = [];
     for (var i = 0; i < this.props.rows; i++) {
       // let row = [];
-      for (var h = 0; h < this.cols; h++) {
+      for (var h = 0; h < this.props.cols; h++) {
         let r = Math.random();
         if (h === this.props.playerPosition.x && i === this.props.playerPosition.y) {
           // console.log([h,i])
@@ -58,7 +58,7 @@ export default class Grid extends Component {
     this.html = [];
     for (var i = 0; i < this.props.rows; i++) {
       let row = [];
-      for (var h = 0; h < this.cols; h++) {
+      for (var h = 0; h < this.props.cols; h++) {
         if (h === this.props.playerPosition.x && i === this.props.playerPosition.y) {
           console.log([h, i])
           row.push(<Square player={true} />)

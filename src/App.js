@@ -13,6 +13,8 @@ class App extends Component {
       }
     }
     this.move = this.move.bind(this);
+    this.rows = 25;
+    this.cols = 25;
   }
 
   move(x, y) {
@@ -26,24 +28,39 @@ class App extends Component {
   }
   componentDidMount() {
     //this.move();
-    document.addEventListener('keypress', (event) => {
-      var key = ("" + event.key).toUpperCase();
-      console.log(key);
-      switch (key) {
-        case "A":
-          this.move(3, 5);
+    /* arrow keys are only triggered by onkeydown, not onkeypress
+
+keycodes are:
+
+left = 37
+up = 38
+right = 39
+down = 40
+*/
+    document.addEventListener('keydown', (event) => {
+      console.log(event.keyCode)
+      var x = this.state.player.x;
+      var y = this.state.player.y;
+      switch (event.keyCode) {
+        case 37: // left
+          x = ((x - 1) > 0) ? x -  1 : 0;
+          this.move(x, y);
+          break; 
+        case 39: // right
+          x = ((x + 1) !== this.cols) ? x + 1 : x;
+          this.move(x, y);
           break;
       }
     })
   }
   render() {
-    let rows = 25;
+    
     let sq;
 
     return (
       <div className="App">
         <Header/>
-        <Grid move={this.move} playerPosition={this.state.player} rows={rows} />
+        <Grid move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
       </div>
     );
   }
