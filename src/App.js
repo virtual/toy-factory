@@ -8,15 +8,38 @@ class App extends Component {
     super();
     this.state = {
       player: {
-        x: 1,
-        y: 0
+        x: 2,
+        y: 2
       }
     }
     this.move = this.move.bind(this);
-    this.rows = 20;
-    this.cols = 25;
+    this.isItemInArray = this.isItemInArray.bind(this);
+    this.notWall = this.notWall.bind(this);
+    this.rows = 25;
+    this.cols = 30;
+
+    this.walls = [
+      [6, 0],[6, 1],[6, 2],[6, 5],[6, 6],[5, 6],[2, 6],[1, 6],[0, 6],
+      [0, 9], [1, 9],[2, 9],[3, 9],[4, 9],[7, 9],[8, 9],[8, 10],
+      [8, 11],[8, 14],[8, 15],[8, 16],[8, 17],[7, 17],[19, 17],[18, 17],
+      [16, 17],[15, 17],[14, 17],[14, 18],[14, 19],[14, 22],[14, 23],
+      [14, 24],[14, 0],[14, 1],[14, 2],[14, 3],[13, 3],[12, 3],[12, 6],[13, 6],
+      [14, 6],[17, 6],[18, 6],[19, 6],[20, 17],[21, 17],[22, 17],[23, 17],
+      [26, 17],[27, 17],[28, 17],[23, 16],[23, 15],[23, 14],[23, 13],[23, 10],
+      [24, 10],[25, 10],[26, 10],[27, 10],[28, 10],[20, 6],[23, 6],[24, 6],
+      [25, 6],[26, 6],[27, 6],[28, 6],[15, 9],[15, 10],[15, 11],[15, 12],
+      [15, 13],[14, 11],[13, 11],[16, 11],[17, 11],[1,17],[2,17],[3,17],[4,17]
+    ]
   }
 
+  isItemInArray(array, item) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i][0] === item[0] && array[i][1] === item[1]) {
+        return true; // Found it
+      }
+    }
+    return false; // Not found
+  }
   move(x, y) {
     console.log('move',x,y)
     this.setState({
@@ -25,6 +48,11 @@ class App extends Component {
         y: y
       }
     })
+  }
+  notWall(x, y) {
+    // console.log(this.walls, x,y)
+    console.log('not wall?, ('+x+','+y+') ',!(this.isItemInArray(this.walls, [x,y])))
+    return (!(this.isItemInArray(this.walls, [x,y]))); 
   }
   componentDidMount() {
     //this.move();
@@ -43,19 +71,19 @@ down = 40
       var y = this.state.player.y;
       switch (event.keyCode) {
         case 37: // left
-          x = ((x - 1) > 0) ? x - 1 : 0;
+          x = ((x - 1) >= 0) && (this.notWall(x-1,y)) ? x - 1 : x;
           this.move(x, y);
           break;
         case 39: // right
-          x = ((x + 1) !== this.cols) ? x + 1 : x;
+          x = ((x + 1) !== this.cols) && (this.notWall(x+1,y)) ? x + 1 : x;
           this.move(x, y);
           break;
         case 38: // up
-          y = ((y - 1) > 0) ? y - 1 : 0;
+          y = ((y - 1) >= 0) && (this.notWall(x,y-1)) ? y - 1 : y;
           this.move(x, y);
           break;
         case 40: // down
-          y = ((y + 1) !== this.rows) ? y + 1 : y;
+          y = ((y + 1) !== this.rows && (this.notWall(x,y+1))) ? y + 1 : y;
           this.move(x, y);
           break;
 
@@ -72,7 +100,7 @@ down = 40
           <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"/>
           </a>
         <Header/>
-        <Grid move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
+        <Grid isItemInArray={this.isItemInArray} walls={this.walls} move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
       </div>
     );
   }

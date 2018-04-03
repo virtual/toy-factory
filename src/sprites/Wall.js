@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class Player extends Component {
+export default class Wall extends Component {
   render() {
     return (
         
-      <span className="player"></span>
+      <div className="wall"></div>
          
     );
   }

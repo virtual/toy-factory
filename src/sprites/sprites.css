@@ -8,14 +8,16 @@
     width: 100%;
     height: 100%;
 }
-.player {
+.square.player {
   background-color: #f00;
   background-image: url(./player.png);
   background-position: 0 0;
   margin: 0 auto;
-  background-size: 100%;
-  width: 100%;
-  height: 100%;
+  background-size: 100%; 
+}
+.square.wall { 
+  background: transparent;
+  background-color: #443063;
 }
 
  /* https://www.deviantart.com/art/MapleStory-Backgrounds-Enchanted-Forest-419122859 */

@@ -17,7 +17,6 @@ export default class Grid extends Component {
     
     this.draw = this.draw.bind(this);
     this.redraw = this.redraw.bind(this);
-    this.isItemInArray = this.isItemInArray.bind(this);
   }
   draw() {
     console.log('draw')
@@ -26,14 +25,20 @@ export default class Grid extends Component {
     for (var i = 0; i < this.props.rows; i++) {
       // let row = [];
       for (var h = 0; h < this.props.cols; h++) {
+        if (h === 0 || i === 0 || h === this.props.cols - 1 || i === this.props.rows -1) {
+          this.props.walls.push([h,i])
+        }
         let r = Math.random();
         if (h === this.props.playerPosition.x && i === this.props.playerPosition.y) {
           // console.log([h,i])
-          // this.props.move(h,i);
+          this.props.move(h,i);
           // row.push(<Square player={true}/>)
         } else {
-          if (r > .96) { 
-            this.monsters.push([h,i]);
+          if ((h != 0 && i != 0 && h != this.props.cols - 1 && i != this.props.rows -1) && r > .96) { 
+            if (!(this.props.isItemInArray(this.props.walls, [h, i]))) {
+              console.log('true')
+              this.monsters.push([h,i]);
+            }
             // row.push(<Square panda={true}/>)
           }
         }
@@ -45,30 +50,26 @@ export default class Grid extends Component {
     }
     
   }
-  isItemInArray(array, item) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i][0] === item[0] && array[i][1] === item[1]) {
-        return true; // Found it
-      }
-    }
-    return false; // Not found
-  }
+  
   redraw() {
-    console.log('redraw')
+    // console.log('redraw')
     this.html = [];
     for (var i = 0; i < this.props.rows; i++) {
       let row = [];
       for (var h = 0; h < this.props.cols; h++) {
+        let classnames = '';
+        let panda = false;
         if (h === this.props.playerPosition.x && i === this.props.playerPosition.y) {
-          console.log([h, i])
-          row.push(<Square player={true} />)
+          classnames += 'player'
         } else {
-          if (this.isItemInArray(this.monsters, [i, h])) {
-            row.push(<Square panda={true} />);
-          } else {
-            row.push(<Square />)
-          }
+          if (this.props.isItemInArray(this.props.walls, [h, i])) {
+            classnames += 'wall'
+          }  else
+          if (this.props.isItemInArray(this.monsters, [h, i])) {
+            panda = true;
+          }  
         }
+        row.push(<Square classnames={classnames} x={h} y={i} panda={panda} />)
       }
       this.html.push(<div className="row">{row}</div>)
     } 
@@ -84,9 +85,9 @@ export default class Grid extends Component {
       this.redraw();
     }
     return (
-      <div className="board">
-        {this.html}
-      </div>
+        <div className="board">
+          {this.html}
+        </div>
     );
   }
 }
