@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Panda from '../sprites/Panda';
 import Player from '../sprites/Player';
-import Wall from '../sprites/Wall';
+import Wall from '../sprites/Wall'; 
 
 export default class Square extends Component {
   constructor() {
@@ -19,13 +19,7 @@ export default class Square extends Component {
     if (this.props.panda) {
       html.push(<Panda/>)
     }
-    if (this.props.player) {
-      html.push(<Player/>)
-    }
-    if (this.props.wall) {
-     // console.log('wall')
-      html.push(<Wall/>)
-    }
+  
     let classes = "square " + this.props.classnames;
     return (
       <div className={classes} data-x={this.props.x} data-y={this.props.y} onClick={this.log}>

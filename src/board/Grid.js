@@ -10,6 +10,7 @@ export default class Grid extends Component {
         y: null
       },
       monsters: [],
+      // coins: [],
       // player: [],
       boardReady: false
     }
@@ -22,6 +23,7 @@ export default class Grid extends Component {
     console.log('draw')
     this.html = [];
     this.monsters = [];
+    this.coins = [];
     for (var i = 0; i < this.props.rows; i++) {
       // let row = [];
       for (var h = 0; h < this.props.cols; h++) {
@@ -37,7 +39,11 @@ export default class Grid extends Component {
           if ((h != 0 && i != 0 && h != this.props.cols - 1 && i != this.props.rows -1) && r > .96) { 
             if (!(this.props.isItemInArray(this.props.walls, [h, i]))) {
               console.log('true')
-              this.monsters.push([h,i]);
+              if (r > .98) {
+                this.monsters.push([h,i]);
+              } else {
+                this.coins.push([h, i]);
+              }
             }
             // row.push(<Square panda={true}/>)
           }
@@ -64,6 +70,9 @@ export default class Grid extends Component {
         } else {
           if (this.props.isItemInArray(this.props.walls, [h, i])) {
             classnames += 'wall'
+          } else 
+          if (this.props.isItemInArray(this.coins, [h, i])) {
+            classnames += 'coin'
           }  else
           if (this.props.isItemInArray(this.monsters, [h, i])) {
             panda = true;

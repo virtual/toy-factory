@@ -19,5 +19,11 @@
   background: transparent;
   background-color: #443063;
 }
+.square.coin {
+  background-image: url('./meso.png'), url('./back2.png');
+  background-position:  0 0;
+  margin: 0 auto;
+  background-size: 100%; 
+}
 
  /* https://www.deviantart.com/art/MapleStory-Backgrounds-Enchanted-Forest-419122859 */
