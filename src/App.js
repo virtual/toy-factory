@@ -12,15 +12,19 @@ class App extends Component {
         x: 2,
         y: 2
       },
-      points: 3,
+      points: 0,
       health: 100,
       weapon: "paintstick",
-      darkness: false
+      darkness: false,
+      monsters: []
     }
     this.move = this.move.bind(this);
     this.isItemInArray = this.isItemInArray.bind(this);
     this.toggleDarkness = this.toggleDarkness.bind(this);
     this.notWall = this.notWall.bind(this);
+    this.updateMonsters = this.updateMonsters.bind(this);
+    this.getMonsters = this.getMonsters.bind(this);
+    this.reduceHealth = this.reduceHealth.bind(this);
     this.rows = 25;
     this.cols = 30;
 
@@ -35,7 +39,7 @@ class App extends Component {
       [24, 10],[25, 10],[26, 10],[27, 10],[28, 10],[20, 6],[23, 6],[24, 6],
       [25, 6],[26, 6],[27, 6],[28, 6],[15, 9],[15, 10],[15, 11],[15, 12],
       [15, 13],[14, 11],[13, 11],[16, 11],[17, 11],[1,17],[2,17],[3,17],[4,17]
-    ]
+    ];
   }
   toggleDarkness() {
     let dark = (this.state.darkness) ? false : true;
@@ -43,7 +47,14 @@ class App extends Component {
       darkness: dark
     })
   }
-
+  getMonsters() {
+    return this.state.monsters;
+  }
+  updateMonsters(monsters) {
+    this.setState({
+      monsters: monsters
+    });
+  }
   isItemInArray(array, item) {
     for (var i = 0; i < array.length; i++) {
       if (array[i][0] === item[0] && array[i][1] === item[1]) {
@@ -61,10 +72,34 @@ class App extends Component {
       }
     })
   }
+  addExp(exp) {
+    this.setState({
+      points: this.state.points + exp
+    }) 
+  }
+  reduceHealth() {
+    this.setState({
+      health: this.state.health- 10
+    }) 
+  }
   notWall(x, y) {
     // console.log(this.walls, x,y)
+    if (this.isEnemy(x,y)){
+      console.log('enemy!!!!')
+      if (Math.random() > .4) {
+        this.reduceHealth();
+        return false
+      } else {
+        this.addExp(10);
+        return true
+      }
+    }
     console.log('not wall?, ('+x+','+y+') ',!(this.isItemInArray(this.walls, [x,y])))
     return (!(this.isItemInArray(this.walls, [x,y]))); 
+  }
+  isEnemy(x, y) {
+    console.log('enemy?, ('+x+','+y+') ',!(this.isItemInArray(this.getMonsters(), [x,y])))
+    return ((this.isItemInArray(this.state.monsters, [x,y]))); 
   }
   componentDidMount() {
     //this.move();
@@ -114,7 +149,7 @@ down = 40
           </a>
         <Header/>
         <Scoreboard health={this.state.health} weapon={this.state.weapon} points={this.state.points}/>
-        <Grid darkness={this.state.darkness} isItemInArray={this.isItemInArray} walls={this.walls} move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
+        <Grid getMonsters={this.getMonsters} updateMonsters={this.updateMonsters} darkness={this.state.darkness} isItemInArray={this.isItemInArray} walls={this.walls} move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
       </div>
     );
   }

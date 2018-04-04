@@ -19,6 +19,7 @@
   background: transparent;
   background-color: #443063;
 }
+.square.weapon { background: transparent; background-color: #0c0;  }
 .square.hide, .square.hide.coin {   background: transparent;
   background-color: #333; }
   .square.hide .panda { display: none;}

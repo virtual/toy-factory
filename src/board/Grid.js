@@ -9,7 +9,7 @@ export default class Grid extends Component {
         x: null,
         y: null
       },
-      monsters: [],
+      // monsters: [],
       // coins: [],
       // player: [],
       boardReady: false
@@ -22,8 +22,9 @@ export default class Grid extends Component {
   draw() {
     console.log('draw')
     this.html = [];
-    this.monsters = [];
+    let monsters = [];
     this.coins = [];
+    this.weapon = [[3,10]];
     for (var i = 0; i < this.props.rows; i++) {
       // let row = [];
       for (var h = 0; h < this.props.cols; h++) {
@@ -38,9 +39,9 @@ export default class Grid extends Component {
         } else {
           if ((h != 0 && i != 0 && h != this.props.cols - 1 && i != this.props.rows -1) && r > .96) { 
             if (!(this.props.isItemInArray(this.props.walls, [h, i]))) {
-              console.log('true')
+              //console.log('true')
               if (r > .98) {
-                this.monsters.push([h,i]);
+                monsters.push([h,i]);
               } else {
                 this.coins.push([h, i]);
               }
@@ -49,9 +50,9 @@ export default class Grid extends Component {
           }
         }
       }
-      this.setState({
-        monsters: this.monsters 
-      })
+      // console.log('monsters');
+      // console.log(monsters);
+      this.props.updateMonsters(monsters);
       
     }
     
@@ -73,8 +74,11 @@ export default class Grid extends Component {
           } else 
           if (this.props.isItemInArray(this.coins, [h, i])) {
             classnames += 'coin'
+          } else 
+          if (this.props.isItemInArray(this.weapon, [h, i])) {
+            classnames += 'weapon'
           }  else
-          if (this.props.isItemInArray(this.monsters, [h, i])) {
+          if (this.props.isItemInArray(this.props.getMonsters(), [h, i])) {
             panda = true;
           }  
         }
