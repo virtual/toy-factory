@@ -78,7 +78,7 @@ export default class Grid extends Component {
             panda = true;
           }  
         }
-        row.push(<Square classnames={classnames} x={h} y={i} panda={panda} />)
+        row.push(<Square darkness={this.props.darkness} playerPosition={this.props.playerPosition} classnames={classnames} x={h} y={i} panda={panda} />)
       }
       this.html.push(<div className="row">{row}</div>)
     } 

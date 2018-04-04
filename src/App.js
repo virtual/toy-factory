@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import Grid from './board/Grid';
 import Header from './header/Header';
+import Scoreboard from './board/Scoreboard';
 import './App.css';
 
 class App extends Component {
@@ -10,10 +11,15 @@ class App extends Component {
       player: {
         x: 2,
         y: 2
-      }
+      },
+      points: 3,
+      health: 100,
+      weapon: "paintstick",
+      darkness: false
     }
     this.move = this.move.bind(this);
     this.isItemInArray = this.isItemInArray.bind(this);
+    this.toggleDarkness = this.toggleDarkness.bind(this);
     this.notWall = this.notWall.bind(this);
     this.rows = 25;
     this.cols = 30;
@@ -30,6 +36,12 @@ class App extends Component {
       [25, 6],[26, 6],[27, 6],[28, 6],[15, 9],[15, 10],[15, 11],[15, 12],
       [15, 13],[14, 11],[13, 11],[16, 11],[17, 11],[1,17],[2,17],[3,17],[4,17]
     ]
+  }
+  toggleDarkness() {
+    let dark = (this.state.darkness) ? false : true;
+    this.setState({
+      darkness: dark
+    })
   }
 
   isItemInArray(array, item) {
@@ -96,11 +108,13 @@ down = 40
 
     return (
       <div className="App">
+        <button onClick={this.toggleDarkness}>Toggle Darkness</button>
         <a className="forkme" href="https://github.com/virtual/toy-factory">
           <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"/>
           </a>
         <Header/>
-        <Grid isItemInArray={this.isItemInArray} walls={this.walls} move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
+        <Scoreboard health={this.state.health} weapon={this.state.weapon} points={this.state.points}/>
+        <Grid darkness={this.state.darkness} isItemInArray={this.isItemInArray} walls={this.walls} move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
       </div>
     );
   }

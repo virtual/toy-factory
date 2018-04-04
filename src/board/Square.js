@@ -21,6 +21,16 @@ export default class Square extends Component {
     }
   
     let classes = "square " + this.props.classnames;
+
+    if (this.props.darkness) {
+      if (Math.abs(this.props.playerPosition.x - this.props.x) < 3 && 
+        Math.abs(this.props.playerPosition.y - this.props.y) < 3) {
+        classes += " show";
+      } else {
+        classes += " hide";
+      }
+    }
+
     return (
       <div className={classes} data-x={this.props.x} data-y={this.props.y} onClick={this.log}>
         {html}
