@@ -20,6 +20,7 @@ class App extends Component {
     }
     this.move = this.move.bind(this);
     this.isItemInArray = this.isItemInArray.bind(this);
+    this.removeItemInArray = this.removeItemInArray.bind(this);
     this.toggleDarkness = this.toggleDarkness.bind(this);
     this.notWall = this.notWall.bind(this);
     this.updateMonsters = this.updateMonsters.bind(this);
@@ -54,6 +55,16 @@ class App extends Component {
     this.setState({
       monsters: monsters
     });
+  }
+  removeItemInArray(array, item) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i][0] === item[0] && array[i][1] === item[1]) {
+        array.splice(i, 1);
+        console.log(array)
+        return array; // Found it
+      }
+    }
+    return array; // Not found
   }
   isItemInArray(array, item) {
     for (var i = 0; i < array.length; i++) {
@@ -91,6 +102,7 @@ class App extends Component {
         return false
       } else {
         this.addExp(10);
+        this.updateMonsters(this.removeItemInArray(this.getMonsters(), [x,y]));
         return true
       }
     }
