@@ -16,7 +16,8 @@ class App extends Component {
       health: 100,
       weapon: "paintstick",
       darkness: false,
-      monsters: []
+      monsters: [],
+      healthPots: []
     }
     this.move = this.move.bind(this);
     this.isItemInArray = this.isItemInArray.bind(this);
@@ -24,8 +25,10 @@ class App extends Component {
     this.toggleDarkness = this.toggleDarkness.bind(this);
     this.notWall = this.notWall.bind(this);
     this.updateMonsters = this.updateMonsters.bind(this);
+    this.updateHealthPots = this.updateHealthPots.bind(this);
     this.getMonsters = this.getMonsters.bind(this);
-    this.reduceHealth = this.reduceHealth.bind(this);
+    this.getHealthPots = this.getHealthPots.bind(this);
+    this.changeHealth = this.changeHealth.bind(this);
     this.rows = 25;
     this.cols = 30;
 
@@ -47,6 +50,14 @@ class App extends Component {
     this.setState({
       darkness: dark
     })
+  }
+  getHealthPots() {
+    return this.state.healthPots;
+  }
+  updateHealthPots(arr) {
+    this.setState({
+      healthPots: arr 
+    });
   }
   getMonsters() {
     return this.state.monsters;
@@ -88,9 +99,9 @@ class App extends Component {
       points: this.state.points + exp
     }) 
   }
-  reduceHealth() {
+  changeHealth(value) {
     this.setState({
-      health: this.state.health- 10
+      health: this.state.health + value
     }) 
   }
   notWall(x, y) {
@@ -98,7 +109,7 @@ class App extends Component {
     if (this.isEnemy(x,y)){
       console.log('enemy!!!!')
       if (Math.random() > .4) {
-        this.reduceHealth();
+        this.changeHealth(-10);
         return false
       } else {
         this.addExp(10);
@@ -106,12 +117,22 @@ class App extends Component {
         return true
       }
     }
+    if (this.isHealthPot(x,y)){
+      this.changeHealth(10);
+        this.updateHealthPots(this.removeItemInArray(this.getHealthPots(), [x,y]));
+        return true
+      
+    }
     console.log('not wall?, ('+x+','+y+') ',!(this.isItemInArray(this.walls, [x,y])))
     return (!(this.isItemInArray(this.walls, [x,y]))); 
   }
   isEnemy(x, y) {
     console.log('enemy?, ('+x+','+y+') ',!(this.isItemInArray(this.getMonsters(), [x,y])))
     return ((this.isItemInArray(this.state.monsters, [x,y]))); 
+  }
+  isHealthPot(x, y) {
+    console.log('hp?, ('+x+','+y+') ',!(this.isItemInArray(this.getHealthPots(), [x,y])))
+    return ((this.isItemInArray(this.state.healthPots, [x,y]))); 
   }
   componentDidMount() {
     //this.move();
@@ -161,7 +182,12 @@ down = 40
           </a>
         <Header/>
         <Scoreboard health={this.state.health} weapon={this.state.weapon} points={this.state.points}/>
-        <Grid getMonsters={this.getMonsters} updateMonsters={this.updateMonsters} darkness={this.state.darkness} isItemInArray={this.isItemInArray} walls={this.walls} move={this.move} playerPosition={this.state.player} cols={this.cols} rows={this.rows} />
+        <Grid 
+        getHealthPots={this.getHealthPots} updateHealthPots={this.updateHealthPots} 
+        getMonsters={this.getMonsters} updateMonsters={this.updateMonsters} 
+        darkness={this.state.darkness} isItemInArray={this.isItemInArray} 
+        walls={this.walls} move={this.move} playerPosition={this.state.player} 
+        cols={this.cols} rows={this.rows} />
       </div>
     );
   }

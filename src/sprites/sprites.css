@@ -20,14 +20,16 @@
   background-color: #443063;
 }
 .square.weapon { background: transparent; background-color: #0c0;  }
-.square.hide, .square.hide.coin {   background: transparent;
+.square.hide, .square.hide.healthpotion {   background: transparent;
   background-color: #333; }
   .square.hide .panda { display: none;}
-.square.coin {
-  background-image: url('./meso.png'), url('./back2.png');
-  background-position:  0 0;
+.square.healthpotion {
+  background-image: url('./hp1000.png'), url('./back2.png');
   margin: 0 auto;
-  background-size: 100%; 
+  background-size: 80%, 100%;
+  background-repeat: no-repeat;
+  background-position: 2px 2px , 0 0; 
+  margin: 0 auto; 
 }
 
  /* https://www.deviantart.com/art/MapleStory-Backgrounds-Enchanted-Forest-419122859 */

@@ -10,7 +10,7 @@ export default class Grid extends Component {
         y: null
       },
       // monsters: [],
-      // coins: [],
+      // healthpotions: [],
       // player: [],
       boardReady: false
     }
@@ -23,7 +23,7 @@ export default class Grid extends Component {
     console.log('draw')
     this.html = [];
     let monsters = [];
-    this.coins = [];
+    let healthpotions = [];
     this.weapon = [[3,10]];
     for (var i = 0; i < this.props.rows; i++) {
       // let row = [];
@@ -43,7 +43,7 @@ export default class Grid extends Component {
               if (r > .98) {
                 monsters.push([h,i]);
               } else {
-                this.coins.push([h, i]);
+                healthpotions.push([h, i]);
               }
             }
             // row.push(<Square panda={true}/>)
@@ -53,6 +53,7 @@ export default class Grid extends Component {
       // console.log('monsters');
       // console.log(monsters);
       this.props.updateMonsters(monsters);
+      this.props.updateHealthPots(healthpotions);
       
     }
     
@@ -72,8 +73,8 @@ export default class Grid extends Component {
           if (this.props.isItemInArray(this.props.walls, [h, i])) {
             classnames += 'wall'
           } else 
-          if (this.props.isItemInArray(this.coins, [h, i])) {
-            classnames += 'coin'
+          if (this.props.isItemInArray(this.props.getHealthPots(), [h, i])) {
+            classnames += 'healthpotion'
           } else 
           if (this.props.isItemInArray(this.weapon, [h, i])) {
             classnames += 'weapon'
