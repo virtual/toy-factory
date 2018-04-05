@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import './Scoreboard.css';
 
 export default class Scoreboard extends Component {
   render() {
     return (
       <div>
-        <ul>
-          <li>XP: {this.props.points} xp</li>
-          <li>Health: {this.props.health}</li>
-          <li>Weapon: {this.props.weapon}</li>
+        <ul className="scoreboard">
+          <li>XP: <strong>{this.props.points} xp</strong></li>
+          <li>Health: <strong>{this.props.health}</strong></li>
+          <li>Weapon: <strong>{this.props.weapon}</strong></li>
         </ul>
       </div>
     );

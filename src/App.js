@@ -14,10 +14,14 @@ class App extends Component {
       },
       points: 0,
       health: 100,
-      weapon: "paintstick",
+      weapon: "none",
       darkness: false,
       monsters: [],
-      healthPots: []
+      healthPots: [],
+      weaponPos: {
+        x: 3,
+        y: 10
+      }
     }
     this.move = this.move.bind(this);
     this.isItemInArray = this.isItemInArray.bind(this);
@@ -29,13 +33,16 @@ class App extends Component {
     this.getMonsters = this.getMonsters.bind(this);
     this.getHealthPots = this.getHealthPots.bind(this);
     this.changeHealth = this.changeHealth.bind(this);
+    this.removeWeaponPos = this.removeWeaponPos.bind(this);
+    this.upgradeWeapon = this.upgradeWeapon.bind(this);
+    this.getDmgMod = this.getDmgMod.bind(this);
     this.rows = 25;
     this.cols = 30;
 
     this.walls = [
       [6, 0],[6, 1],[6, 2],[6, 5],[6, 6],[5, 6],[2, 6],[1, 6],[0, 6],
       [0, 9], [1, 9],[2, 9],[3, 9],[4, 9],[7, 9],[8, 9],[8, 10],
-      [8, 11],[8, 14],[8, 15],[8, 16],[8, 17],[7, 17],[19, 17],[18, 17],
+      [8, 11],[8, 14],[8, 15],[8, 16],[8, 17],[7, 17],[19, 17],
       [16, 17],[15, 17],[14, 17],[14, 18],[14, 19],[14, 22],[14, 23],
       [14, 24],[14, 0],[14, 1],[14, 2],[14, 3],[13, 3],[12, 3],[12, 6],[13, 6],
       [14, 6],[17, 6],[18, 6],[19, 6],[20, 17],[21, 17],[22, 17],[23, 17],
@@ -50,6 +57,24 @@ class App extends Component {
     this.setState({
       darkness: dark
     })
+  }
+  upgradeWeapon() {
+    let upgrade = "paintbrush";
+    switch (this.state.weapon) {
+      case "none":
+      upgrade = "paintbrush";
+      break;
+      case "paintbrush":
+      upgrade = "dagger"
+    }
+    this.setState({
+      weapon: upgrade
+    })
+  }
+  removeWeaponPos() {
+    this.setState({
+      weaponPos: null 
+    });
   }
   getHealthPots() {
     return this.state.healthPots;
@@ -86,7 +111,7 @@ class App extends Component {
     return false; // Not found
   }
   move(x, y) {
-    console.log('move',x,y)
+    // console.log('move',x,y)
     this.setState({
       player: {
         x: x,
@@ -104,11 +129,23 @@ class App extends Component {
       health: this.state.health + value
     }) 
   }
+  getDmgMod() {
+    let dmg = .1;
+    switch(this.state.weapon){
+      case "none":
+      dmg = .1;
+      break;
+      case "paintbrush":
+      dmg = .3;
+      break;
+    }
+    return dmg;
+  }
   notWall(x, y) {
     // console.log(this.walls, x,y)
     if (this.isEnemy(x,y)){
-      console.log('enemy!!!!')
-      if (Math.random() > .4) {
+      // console.log('enemy!!!!')
+      if (Math.random() > this.getDmgMod()) {
         this.changeHealth(-10);
         return false
       } else {
@@ -123,16 +160,29 @@ class App extends Component {
         return true
       
     }
-    console.log('not wall?, ('+x+','+y+') ',!(this.isItemInArray(this.walls, [x,y])))
+    if (this.isWeapon(x,y)) {
+      this.removeWeaponPos();
+      this.upgradeWeapon();
+    }
+    // console.log('not wall?, ('+x+','+y+') ',!(this.isItemInArray(this.walls, [x,y])))
     return (!(this.isItemInArray(this.walls, [x,y]))); 
   }
   isEnemy(x, y) {
-    console.log('enemy?, ('+x+','+y+') ',!(this.isItemInArray(this.getMonsters(), [x,y])))
+    // console.log('enemy?, ('+x+','+y+') ',!(this.isItemInArray(this.getMonsters(), [x,y])))
     return ((this.isItemInArray(this.state.monsters, [x,y]))); 
   }
   isHealthPot(x, y) {
-    console.log('hp?, ('+x+','+y+') ',!(this.isItemInArray(this.getHealthPots(), [x,y])))
+    // console.log('hp?, ('+x+','+y+') ',!(this.isItemInArray(this.getHealthPots(), [x,y])))
     return ((this.isItemInArray(this.state.healthPots, [x,y]))); 
+  }
+  isWeapon(x, y) {
+    let w = (this.state.weaponPos && x === this.state.weaponPos.x && y === this.state.weaponPos.y) ? true : false;
+    if (w) {
+      console.log('YARR!')
+    }
+    // console.log('weapon?, ('+x+','+y+') ',!()
+    return w;
+    // return ((this.isItemInArray(this.state.healthPots, [x,y]))); 
   }
   componentDidMount() {
     //this.move();
@@ -146,7 +196,7 @@ right = 39
 down = 40
 */
     document.addEventListener('keydown', (event) => {
-      console.log(event.keyCode)
+      // console.log(event.keyCode)
       var x = this.state.player.x;
       var y = this.state.player.y;
       switch (event.keyCode) {
@@ -176,13 +226,14 @@ down = 40
 
     return (
       <div className="App">
-        <button onClick={this.toggleDarkness}>Toggle Darkness</button>
+        <button className="toggleDark" onClick={this.toggleDarkness}>Toggle Darkness</button>
         <a className="forkme" href="https://github.com/virtual/toy-factory">
           <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"/>
           </a>
         <Header/>
         <Scoreboard health={this.state.health} weapon={this.state.weapon} points={this.state.points}/>
         <Grid 
+        weaponPos={this.state.weaponPos} removeWeaponPos={this.state.removeWeaponPos}
         getHealthPots={this.getHealthPots} updateHealthPots={this.updateHealthPots} 
         getMonsters={this.getMonsters} updateMonsters={this.updateMonsters} 
         darkness={this.state.darkness} isItemInArray={this.isItemInArray} 

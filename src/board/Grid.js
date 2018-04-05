@@ -24,7 +24,7 @@ export default class Grid extends Component {
     this.html = [];
     let monsters = [];
     let healthpotions = [];
-    this.weapon = [[3,10]];
+    
     for (var i = 0; i < this.props.rows; i++) {
       // let row = [];
       for (var h = 0; h < this.props.cols; h++) {
@@ -37,10 +37,10 @@ export default class Grid extends Component {
           this.props.move(h,i);
           // row.push(<Square player={true}/>)
         } else {
-          if ((h != 0 && i != 0 && h != this.props.cols - 1 && i != this.props.rows -1) && r > .96) { 
+          if ((h != 0 && i != 0 && h != this.props.cols - 1 && i != this.props.rows -1) && r > .97) { 
             if (!(this.props.isItemInArray(this.props.walls, [h, i]))) {
               //console.log('true')
-              if (r > .98) {
+              if (r > .985) {
                 monsters.push([h,i]);
               } else {
                 healthpotions.push([h, i]);
@@ -69,6 +69,10 @@ export default class Grid extends Component {
         let panda = false;
         if (h === this.props.playerPosition.x && i === this.props.playerPosition.y) {
           classnames += 'player'
+        } 
+        else if ((this.props.weaponPos) && 
+          (h === this.props.weaponPos.x && i === this.props.weaponPos.y)) {
+          classnames += 'weapon'
         } else {
           if (this.props.isItemInArray(this.props.walls, [h, i])) {
             classnames += 'wall'
@@ -76,9 +80,9 @@ export default class Grid extends Component {
           if (this.props.isItemInArray(this.props.getHealthPots(), [h, i])) {
             classnames += 'healthpotion'
           } else 
-          if (this.props.isItemInArray(this.weapon, [h, i])) {
-            classnames += 'weapon'
-          }  else
+          // if (this.props.isItemInArray(this.weapon, [h, i])) {
+          //   classnames += 'weapon'
+          // }  else
           if (this.props.isItemInArray(this.props.getMonsters(), [h, i])) {
             panda = true;
           }  

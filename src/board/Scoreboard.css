@@ -1,0 +1,13 @@
+
+
+ul.scoreboard, ul.scoreboard li { list-style: inline;  margin: 0; display:inline-block;}
+
+ul.scoreboard { display: flex; width: 100%; 
+  max-width: 800px;
+  margin: 0 auto;
+  color: #eee;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+ul.scoreboard li { padding: 1rem 2rem; flex: 1;}  

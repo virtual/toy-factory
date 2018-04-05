@@ -3,17 +3,36 @@
   max-width: 1100px;
   margin: 0 auto;
 }
-header {text-align:center; }
-header h1 { font-weight: 300;}
+header {text-align:center; padding: .5rem; 
+    background: #000;
+    color: #fff;
+}
+header h1 { font-weight: 300; margin:0; font-size: 1rem; text-transform: uppercase;}
+
+.toggleDark { float: left;
+  background: #4681bd;
+  padding: 5px 8px;
+  border-radius: 3px;
+  color: #fff;
+  margin: 3px;
+  border: 1px solid #578cc1;
+  cursor: pointer;
+}
+.toggleDark:hover {background:#578cc1;}
+
 
 .sprite { background:#f5f5f5; padding: 1rem; }
 
 .square { padding:0; height: 10px; width: 10px; 
-  box-shadow: 1px 1px 0 #000; display:inline-block; border-collapse: collapse}
+    border-top: 1px solid rgba(0, 0, 0, 0.25); 
+    border-left: 1px solid rgba(0, 0, 0, 0.25); 
+    display:inline-block; border-collapse: collapse;
+    background: url(./sprites/back2.png) 0 0;
+    background-size: cover; 
+  }
 
 .row {    display: inline-block;
-  border-left: 1px solid #000;
-  border-top: 1px solid #000;}
+  }
 @media (min-width: 410px) {
   .square { height: 12px; width: 12px; }
 }
@@ -26,10 +45,5 @@ header h1 { font-weight: 300;}
 @media (min-width: 910px) {
   .square { height: 25px; width: 25px; }
 }
- 
-.square {
-  background: url(./sprites/back2.png) 0 0;
-  background-size: cover;
-  opacity: .9
-}
+  
 .forkme {position: absolute; top: 0; right: 0; border: 0;}
