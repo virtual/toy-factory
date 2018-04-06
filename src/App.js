@@ -12,6 +12,7 @@ class App extends Component {
         x: 2,
         y: 2
       },
+      gameState: 'new',
       points: 0,
       health: 100,
       weapon: "none",
@@ -36,6 +37,7 @@ class App extends Component {
     this.removeWeaponPos = this.removeWeaponPos.bind(this);
     this.upgradeWeapon = this.upgradeWeapon.bind(this);
     this.getDmgMod = this.getDmgMod.bind(this);
+    this.setGameState = this.setGameState.bind(this);
     this.rows = 25;
     this.cols = 30;
 
@@ -125,8 +127,25 @@ class App extends Component {
     }) 
   }
   changeHealth(value) {
+    let newHealth = (this.state.health + value);
+    if (newHealth > 100) { return true; } else {
+      if (newHealth > 0) {
+        this.setState({
+          health: this.state.health + value
+        })
+      } else {
+        console.log('die')
+        this.setState({
+          health: 100,
+          gameState: "new"
+        })
+        alert("Game over. You died. Restarting board.")
+      }
+    }
+  }
+  setGameState(newstate) {
     this.setState({
-      health: this.state.health + value
+      gameState: newstate
     }) 
   }
   getDmgMod() {
@@ -195,34 +214,36 @@ up = 38
 right = 39
 down = 40
 */
+
     document.addEventListener('keydown', (event) => {
       // console.log(event.keyCode)
-      var x = this.state.player.x;
-      var y = this.state.player.y;
-      switch (event.keyCode) {
-        case 37: // left
-          x = ((x - 1) >= 0) && (this.notWall(x-1,y)) ? x - 1 : x;
-          this.move(x, y);
-          break;
-        case 39: // right
-          x = ((x + 1) !== this.cols) && (this.notWall(x+1,y)) ? x + 1 : x;
-          this.move(x, y);
-          break;
-        case 38: // up
-          y = ((y - 1) >= 0) && (this.notWall(x,y-1)) ? y - 1 : y;
-          this.move(x, y);
-          break;
-        case 40: // down
-          y = ((y + 1) !== this.rows && (this.notWall(x,y+1))) ? y + 1 : y;
-          this.move(x, y);
-          break;
+      if (this.state.gameState === 'play') {
+        var x = this.state.player.x;
+        var y = this.state.player.y;
+        switch (event.keyCode) {
+          case 37: // left
+            x = ((x - 1) >= 0) && (this.notWall(x-1,y)) ? x - 1 : x;
+            this.move(x, y);
+            break;
+          case 39: // right
+            x = ((x + 1) !== this.cols) && (this.notWall(x+1,y)) ? x + 1 : x;
+            this.move(x, y);
+            break;
+          case 38: // up
+            y = ((y - 1) >= 0) && (this.notWall(x,y-1)) ? y - 1 : y;
+            this.move(x, y);
+            break;
+          case 40: // down
+            y = ((y + 1) !== this.rows && (this.notWall(x,y+1))) ? y + 1 : y;
+            this.move(x, y);
+            break;
 
-      }
+        }
+      }  
     })
   }
   render() {
-    
-    let sq;
+     let sq;
 
     return (
       <div className="App">
@@ -236,6 +257,7 @@ down = 40
         weaponPos={this.state.weaponPos} removeWeaponPos={this.state.removeWeaponPos}
         getHealthPots={this.getHealthPots} updateHealthPots={this.updateHealthPots} 
         getMonsters={this.getMonsters} updateMonsters={this.updateMonsters} 
+        setGameState={this.setGameState} gameState={this.state.gameState}
         darkness={this.state.darkness} isItemInArray={this.isItemInArray} 
         walls={this.walls} move={this.move} playerPosition={this.state.player} 
         cols={this.cols} rows={this.rows} />

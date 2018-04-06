@@ -11,3 +11,16 @@ ul.scoreboard { display: flex; width: 100%;
 }
 
 ul.scoreboard li { padding: 1rem 2rem; flex: 1;}  
+.healthbar-container { border: 1px solid #000; width:100%; }
+.healthbar-container  { 
+  height: 6px;
+  background: rgba(248,80,50,1);
+background: -moz-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(202,227,9,1) 41%, rgba(7,227,33,1) 73%, rgba(22,112,4,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(248,80,50,1)), color-stop(41%, rgba(202,227,9,1)), color-stop(73%, rgba(7,227,33,1)), color-stop(100%, rgba(22,112,4,1)));
+background: -webkit-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(202,227,9,1) 41%, rgba(7,227,33,1) 73%, rgba(22,112,4,1) 100%);
+background: -o-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(202,227,9,1) 41%, rgba(7,227,33,1) 73%, rgba(22,112,4,1) 100%);
+background: -ms-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(202,227,9,1) 41%, rgba(7,227,33,1) 73%, rgba(22,112,4,1) 100%);
+background: linear-gradient(to right, rgba(248,80,50,1) 0%, rgba(202,227,9,1) 41%, rgba(7,227,33,1) 73%, rgba(22,112,4,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f85032', endColorstr='#167004', GradientType=1 );
+  }
+  .healthbar { float:right; background:#000;display:block;padding:3px 0;}

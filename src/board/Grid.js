@@ -12,7 +12,7 @@ export default class Grid extends Component {
       // monsters: [],
       // healthpotions: [],
       // player: [],
-      boardReady: false
+      // boardReady: false
     }
     this.html = [];
     
@@ -96,9 +96,10 @@ export default class Grid extends Component {
     console.log('mount');
   }
   render() {
-    if (!(this.state.boardReady)) {
+    if ((this.props.gameState === 'new')) {
       this.draw();
-      this.setState({ boardReady: true})
+      this.props.setGameState('play');
+      // this.setState({ boardReady: true})
     } else {
       this.redraw();
     }
